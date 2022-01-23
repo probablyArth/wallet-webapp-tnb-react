@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import SetSigningKey from "./components/SetSigningKey";
+import isValid from './utils/isValid'
+
 
 function App() {
+
+  const [signingKey, setSigningKey] = useState('');
+  const [isKeySet, setIsKeySet] = useState(false)
+  const [error, setError] = useState('');
+
+  const handleKeySubmission = () => {
+    if (! isValid(signingKey)) {setError('Invalid Signing Key'); return null}
+
+    setError('')
+    setIsKeySet(true)
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col justify-center items-center h-screen">
+      {!isKeySet && <SetSigningKey setSigningKey={setSigningKey} handleSubmission={handleKeySubmission}/>}
+      <span className="text-red-600 mt-6">{error}</span>
     </div>
   );
 }
