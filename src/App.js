@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SetSigningKey from "./components/SetSigningKey";
 import isValid from './utils/isValid'
-
+import Dashboard from "./components/Dashboard";
 
 function App() {
 
@@ -19,6 +19,7 @@ function App() {
   return (
     <div className="flex flex-col justify-center items-center h-screen">
       {!isKeySet && <SetSigningKey setSigningKey={setSigningKey} handleSubmission={handleKeySubmission}/>}
+      {isKeySet && <Dashboard signingKey={signingKey} />}
       <span className="text-red-600 mt-6">{error}</span>
     </div>
   );
